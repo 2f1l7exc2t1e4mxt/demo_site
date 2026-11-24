@@ -1,0 +1,44 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+  line-height: 1.6;
+  color: #222;
+  background: #fff;
+}
+
+.app { max-width: 720px; margin: 0 auto; padding: 16px; }
+
+button {
+  font: inherit;
+  padding: 6px 14px;
+  border: 1px solid #888;
+  border-radius: 4px;
+  background: #f3f3f3;
+  cursor: pointer;
+}
+button:hover { background: #e6e6e6; }
+
+.consent-banner {
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fafafa;
+}
+.consent-banner p { margin: 0 0 8px; font-size: 14px; }
+.consent-banner__actions { display: flex; gap: 8px; }
+
+.login-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+form { display: flex; align-items: center; gap: 8px; margin: 16px 0; }
+input[type='text'] { flex: 1; padding: 6px 8px; font: inherit; border: 1px solid #aaa; border-radius: 4px; }
+ul { padding-left: 20px; }
+a { color: #0b5fff; }

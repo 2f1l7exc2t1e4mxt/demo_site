@@ -1,35 +1,17 @@
-<html lang="en"><head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ga4_web_demo</title>
-
-    <!--
-      GitHub Pages は静的ホスティングのためサーバー側でのパス書き換えができない。
-      404.html からのリダイレクトで一時的にクエリ文字列化されたパスを、
-      React Router がマウントされる前に本来のパスへ復元する（spa-github-pages方式）。
-    -->
-    <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-20GS8Z38KX&amp;cx=c&amp;gtm=4e6bh1"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-TPVG273L"></script><script type="text/javascript">
-      (function (l) {
-        if (l.search[1] === '/') {
-          var decoded = l.search
-            .slice(1)
-            .split('&')
-            .map(function (s) {
-              return s.replace(/~and~/g, '&')
-            })
-            .join('?')
-          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash)
-        }
-      })(window.location)
-    </script>
+    <link rel="stylesheet" href="style.css" />
 
     <!--
       Google Consent Mode v2 — GTMコンテナより先に読み込み、既定値を「保存拒否」にする。
-      同意バナー（ConsentBanner.jsx）でユーザーが選択するまでCookie/分析ストレージへの
+      同意バナー（common.js）でユーザーが選択するまでCookie/分析ストレージへの
       書き込みは行われない（gtag('consent', 'update', ...)で選択結果を反映）。
     -->
-    <script type="text/javascript">
+    <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
       gtag('consent', 'default', {
@@ -41,22 +23,19 @@
     </script>
 
     <!--
-      user_idはGTMの構成パラメータ（Fields to Set）で読み込むため、GTMコンテナが
-      発火するより前にdataLayerへ積んでおく必要がある。SPAの疑似遷移中の状態変化は
-      拾えない（Enhanced MeasurementのSPA内自動page_viewはGTMのトリガーを経由せず
-      構成パラメータが反映されないため）ので、ログイン切り替え（LoginToggle.jsx）は
-      localStorageへ保存した上でページを実リロードし、ここで最新状態を読み直す。
+      user_idはGTMの構成パラメータで読み込むため、GTMコンテナが発火するより前に
+      dataLayerへ積んでおく。ログイン切替（common.js）はlocalStorageへ保存した上で
+      ページを実リロードし、ここで最新状態を読み直す。
     -->
-    <script type="text/javascript">
+    <script>
       window.dataLayer.push({
         user_id: window.localStorage.getItem('ga4_demo_login') === 'true' ? 'usr_8f3a1c20' : null,
       });
     </script>
 
     <!--
-      GA4はgtag.js直書きではなく、Google Tag Manager (GTM-TPVG273L) 経由で配信する。
-      Googleタグ（測定ID: G-20GS8Z38KX、All Pagesトリガー、構成パラメータ
-      user_id={{uid}}）はGTMコンテナ側で設定する。
+      GA4とData 360のタグは、いずれもGTM経由で配信する。
+      タグはGTMコンテナ側で設定するため、ここには直書きしない。
     -->
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -65,15 +44,31 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TPVG273L');</script>
     <!-- End Google Tag Manager -->
-    <script type="module" crossorigin="" src="/assets/index-CKlBkVKw.js"></script>
-    <link rel="stylesheet" crossorigin="" href="/assets/index-CGN_rF0o.css">
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TPVG273L"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <div id="root"><main class="app"><div class="consent-banner"><p>当サイトはGoogle Analytics 4（GA4）でアクセス状況を計測しています。 同意いただいた場合のみ計測用Cookieを保存します。</p><div class="consent-banner__actions"><button type="button">拒否する</button><button type="button">同意する</button></div></div><div class="login-toggle"><span>未ログイン</span><button type="button">ログイン</button></div><section><h1>GA4 検証サイト</h1><p>商品一覧から詳細ページに遷移して、GA4標準イベントの送信を確認します。</p><form><label for="keyword">サイト内検索</label><input id="keyword" placeholder="車種名で検索" type="text" name="keyword"><button type="submit">検索</button></form><ul><li><a href="/products/p1" data-discover="true">EVモデルA</a></li><li><a href="/products/p2" data-discover="true">EVモデルB</a></li></ul></section></main></div>
-  
 
-<script id="" text="" charset="" type="text/javascript" src="https://cdn.c360a.salesforce.com/beacon/c360a/78551f34-da0e-4aa0-88e9-ede2fe8c70df/scripts/c360a.min.js"></script></body></html>
+    <main class="app">
+      <div id="site-header"></div>
+
+      <section>
+        <h1>GA4 検証サイト</h1>
+        <p>商品一覧から詳細ページに遷移して、GA4標準イベントの送信を確認します。</p>
+
+        <form id="search-form">
+          <label for="keyword">サイト内検索</label>
+          <input id="keyword" name="keyword" type="text" placeholder="車種名で検索" />
+          <button type="submit">検索</button>
+        </form>
+
+        <ul id="product-list"></ul>
+      </section>
+    </main>
+
+    <script src="common.js"></script>
+    <script src="home.js"></script>
+  </body>
+</html>

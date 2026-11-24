@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>商品詳細 | ga4_web_demo</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Google Consent Mode v2（既定値: 保存拒否）。index.html と同じ内容 -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+      });
+    </script>
+
+    <!-- user_id をGTMより先にdataLayerへ積む。index.html と同じ内容 -->
+    <script>
+      window.dataLayer.push({
+        user_id: window.localStorage.getItem('ga4_demo_login') === 'true' ? 'usr_8f3a1c20' : null,
+      });
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TPVG273L');</script>
+    <!-- End Google Tag Manager -->
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TPVG273L"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <main class="app">
+      <div id="site-header"></div>
+      <section id="product-detail"></section>
+    </main>
+
+    <script src="common.js"></script>
+    <script src="product.js"></script>
+  </body>
+</html>
